@@ -1,18 +1,11 @@
 var today  = document.getElementById('currentDay');
-
+var time = moment(); 
 
 var timerInterval = setInterval(function() {
   today.innerHTML = moment().format("MMM Do YY");  
 }, 1000);
 
 console.log("ayo")
-
-//updates each day
-// var update = function (){ 
-//   document.getElementById('dateCurrent').innerHTML = moment().format("MMM Do YYYY, h:mm:ss a");
-// }; 
-// setInterval(update, 1000); 
-
 // .ready, starts the function 
   $(document).ready(function() {
   //gets the ID of saveButton and gives var SaveButton 
@@ -21,7 +14,8 @@ console.log("ayo")
   var saveButton = $('#saveButton'); 
     $('#saveButton').on('click', function(event) {
       event.preventDefault();
-      var value = $(this).sibling('.informaion').val();
+      var saveB = $('.saveBtn')
+      var time = $(this).sibling('.informaion').val();
       var value = $(this).parent().attr('id');
       // above, grabs the variables values and when called it uses them. 
       // set item is another way to say youre saving an item. 
@@ -34,33 +28,41 @@ console.log("ayo")
   // udpadate current hours and change colors
     
       function colorUpdater() {
-        var currentHour = moment().hours;
-
+        hour = time.hours();
         // loop over timeblocks
         $('.time-block').each(function () {
           // creat something to loop over the blocks
-
-
+          var now = parseInt($(this).attr('id')); // convert my string to an interger...
+          if (now > hour) { 
+            $(this).addClass('future')
+          } else if (now === hour) {
+            $(this).addClass('presetn'); 
+          } 
+          else {
+            $(this).addClass('past'); 
+          }
         });
       }
-      $("#hour-nine .information").value(localStorage.getItem('hour-nine')); 
+      colorUpdater(); 
+
+        $(timeBlock).each(function () {
+          var get = $(this).attr('id'); 
+          var planner = localStorage.getItem('id'); 
+          (console.log(get))
+            if(planner !== null) { 
+              $(this).children('.planner').value(planner)
+            }
+        }); 
+      // coppy and paste for each. 
+      // $("#hour-nine .information").value(localStorage.getItem('hour-nine')); 
+      // $("#hour-ten .information").value(localStorage.getItem('hour-ten')); 
+      // $("#hour-eleven .information").value(localStorage.getItem('hour-eleve')); 
+      // $("#hour-twelve .information").value(localStorage.getItem('hour-twelve')); 
+      // $("#hour-one .information").value(localStorage.getItem('hour-one')); 
+      // $("#hour-two .information").value(localStorage.getItem('hour-two')); 
+      // $("#hour-three .information").value(localStorage.getItem('hour-three')); 
+      // $("#hour-four .information").value(localStorage.getItem('hour-four')); 
+      // $("#hour-five .information").value(localStorage.getItem('hour-five')); 
 
 
-})
-
-// colorUpdater(); 
-
-// function colorUpdater(){
-//   // the var for the conditional statement. 
-//   var now = new Date().getHours(); 
-
-//   if (now > 9) { // if now is less than 9
-//     $("9AM").addClass("past"); // give 9 AM A class of past, which turns it grey
-//   } else if (now >= 9 && now < 10){
-//   $("9AM").addClass('present'); 
-//   }else {
-//     $("9AM").addClass('future');
-//   }
-//    // if now is greater than} 
-// }; 
-
+}); 

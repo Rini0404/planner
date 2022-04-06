@@ -1,9 +1,16 @@
 var today  = document.getElementById('currentDay');
 var time = moment(); 
 
-var timerInterval = setInterval(function() {
-  today.innerHTML = moment().format("MMM Do YY");  
-}, 1000);
+  var timeDisplay = moment().format("dddd, MMMM do YYYY, h:mm:ss a"); 
+  $("#currentDay").text(timeDisplay); 
+
+
+
+  var update = function () {
+    document.getElementById('currentDay').innerHTML = moment().format("dddd, MMMM do YYYY, h:mm:ss a");
+  }; 
+setInterval(update, 1000);
+
 
 console.log("ayo")
 // .ready, starts the function 
@@ -11,12 +18,11 @@ console.log("ayo")
   //gets the ID of saveButton and gives var SaveButton 
    // listen for save button click 
   //  more code for this item styling?
-  var saveButton = $('#saveButton'); 
-    $('#saveButton').on('click', function(event) {
+  var saveBtn = $('.saveBtn')
+    saveBtn.on('click', function(event) {
       event.preventDefault();
-      var saveB = $('.saveBtn')
-      var time = $(this).sibling('.informaion').val();
-      var value = $(this).parent().attr('id');
+      var value = $(this).siblings('.informaion').val();
+      var time = $(this).parent().attr('id');
       // above, grabs the variables values and when called it uses them. 
       // set item is another way to say youre saving an item. 
        //saves the actual time, and its value es: the time is 8pm, saves "PM"
@@ -28,41 +34,44 @@ console.log("ayo")
   // udpadate current hours and change colors
     
       function colorUpdater() {
-        hour = time.hours();
+        var hour = moment().hours();
+        console.log(hour)
         // loop over timeblocks
         $('.time-block').each(function () {
           // creat something to loop over the blocks
-          var now = parseInt($(this).attr('id')); // convert my string to an interger...
+          var now = parseInt($(this).attr('id').split('-')); // convert my string to an interger...
           if (now > hour) { 
             $(this).addClass('future')
           } else if (now === hour) {
-            $(this).addClass('presetn'); 
-          } 
-          else {
+            $(this).addClass('present'); 
+          } else {
             $(this).addClass('past'); 
           }
+          
         });
       }
       colorUpdater(); 
 
-        $(timeBlock).each(function () {
-          var get = $(this).attr('id'); 
-          var planner = localStorage.getItem('id'); 
-          (console.log(get))
-            if(planner !== null) { 
-              $(this).children('.planner').value(planner)
+      // selected class .time-block
+        $(".time-block").each(function () {
+          var id = $(this).attr('id'); 
+          var time = localStorage.getItem('id'); 
+          console.log(id)
+            if(time !== null) { 
+              $(this).children('.time').value(time)
             }
         }); 
+});         
       // coppy and paste for each. 
-      // $("#hour-nine .information").value(localStorage.getItem('hour-nine')); 
-      // $("#hour-ten .information").value(localStorage.getItem('hour-ten')); 
-      // $("#hour-eleven .information").value(localStorage.getItem('hour-eleve')); 
-      // $("#hour-twelve .information").value(localStorage.getItem('hour-twelve')); 
-      // $("#hour-one .information").value(localStorage.getItem('hour-one')); 
-      // $("#hour-two .information").value(localStorage.getItem('hour-two')); 
-      // $("#hour-three .information").value(localStorage.getItem('hour-three')); 
-      // $("#hour-four .information").value(localStorage.getItem('hour-four')); 
-      // $("#hour-five .information").value(localStorage.getItem('hour-five')); 
+       $("#hour-9 .information").val(localStorage.getItem('hour-9')); 
+       $("#hour-10 .information").val(localStorage.getItem('hour-10')); 
+       $("#hour-11 .information").val(localStorage.getItem('hour-11')); 
+       $("#hour-12 .information").val(localStorage.getItem('hour-12')); 
+       $("#hour-1 .information").val(localStorage.getItem('hour-1')); 
+       $("#hour-2 .information").val(localStorage.getItem('hour-2')); 
+       $("#hour-3 .information").val(localStorage.getItem('hour-3')); 
+       $("#hour-4 .information").val(localStorage.getItem('hour-4')); 
+       $("#hour-5 .information").val(localStorage.getItem('hour-5')); 
 
 
-}); 
+

@@ -65,7 +65,9 @@ console.log("ayo")
         });
     
   }
-      colorUpdater();   
+      colorUpdater();      
+       // coppy and paste for each.
+      
       $("#hour-9 .information").val(localStorage.getItem('hour-9')); 
       $("#hour-10 .information").val(localStorage.getItem('hour-10')); 
       $("#hour-11 .information").val(localStorage.getItem('hour-11')); 
@@ -81,5 +83,3 @@ console.log("ayo")
       $("#hour-5 .information").val(localStorage.getItem('hour-5')); 
 
 });  
-    // coppy and paste for each.
-      
